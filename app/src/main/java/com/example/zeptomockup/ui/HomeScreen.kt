@@ -1,6 +1,5 @@
 package com.example.zeptomockup.ui
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -37,10 +36,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,40 +57,16 @@ import com.example.zeptomockup.data.ProductRepository
 
 @Composable
 fun HomeScreen(vm: CartViewModel, modifier: Modifier = Modifier) {
-    var searchActive by rememberSaveable { mutableStateOf(false) }
-    var selectedCategory by rememberSaveable { mutableStateOf<String?>(null) }
-    val resultsMode = searchActive || selectedCategory != null
-
-    fun exitResults() {
-        searchActive = false
-        selectedCategory = null
-        vm.updateQuery("")
-    }
-
-    BackHandler(enabled = resultsMode) { exitResults() }
-
-    if (resultsMode) {
-        ResultsScreen(
-            vm = vm,
-            category = selectedCategory,
-            onBack = ::exitResults,
-            modifier = modifier,
-        )
+    if (vm.resultsMode) {
+        ResultsScreen(vm = vm, modifier = modifier)
     } else {
-        LandingScreen(
-            vm = vm,
-            onSearchClick = { searchActive = true },
-            onCategoryClick = { selectedCategory = it },
-            modifier = modifier,
-        )
+        LandingScreen(vm = vm, modifier = modifier)
     }
 }
 
 @Composable
 private fun LandingScreen(
     vm: CartViewModel,
-    onSearchClick: () -> Unit,
-    onCategoryClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -111,10 +82,10 @@ private fun LandingScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item(span = { GridItemSpan(maxLineSpan) }) { LocationRow() }
-            item(span = { GridItemSpan(maxLineSpan) }) { SearchEntry(onSearchClick) }
+            item(span = { GridItemSpan(maxLineSpan) }) { SearchEntry(vm::openSearch) }
             item(span = { GridItemSpan(maxLineSpan) }) { FestBanner() }
             items(ProductRepository.categories) { category ->
-                CategoryTile(category) { onCategoryClick(category.name) }
+                CategoryTile(category) { vm.selectCategory(category.name) }
             }
             item(span = { GridItemSpan(maxLineSpan) }) { PromoStrip() }
             item(span = { GridItemSpan(maxLineSpan) }) {
@@ -127,12 +98,13 @@ private fun LandingScreen(
                     Box(Modifier.weight(1f).height(1.dp).background(Color(0xFFE0E0E0)))
                 }
             }
-            items(ProductRepository.products, key = { it.id }) { product ->
+            items(vm.catalog, key = { it.id }) { product ->
                 ProductCard(
                     product = product,
                     quantity = vm.quantityOf(product),
                     onAdd = { vm.add(product) },
                     onRemove = { vm.remove(product) },
+                    onClick = { vm.openProductId = product.id },
                 )
             }
         }
@@ -318,19 +290,19 @@ private fun PromoStrip() {
 @Composable
 private fun ResultsScreen(
     vm: CartViewModel,
-    category: String?,
-    onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
+    val category = vm.selectedCategory
+    val onBack = vm::exitResults
     LaunchedEffect(category) {
         if (category == null) focusRequester.requestFocus()
     }
 
     val products: List<Product> = when {
-        category != null -> ProductRepository.byCategory(category)
-        else -> ProductRepository.search(vm.query)
+        category != null -> vm.categoryProducts(category)
+        else -> vm.searchResultList
     }
 
     Column(modifier = modifier.fillMaxSize().background(Color.White)) {
@@ -404,7 +376,12 @@ private fun ResultsScreen(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            if (products.isEmpty()) {
+            if (vm.searchLoading && category == null) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Text("Searching live catalogue…", color = Color.Gray, fontSize = 13.sp)
+                }
+            }
+            if (products.isEmpty() && !vm.searchLoading) {
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     Column(
                         modifier = Modifier.fillMaxWidth().padding(vertical = 64.dp),
@@ -422,6 +399,7 @@ private fun ResultsScreen(
                     quantity = vm.quantityOf(product),
                     onAdd = { vm.add(product) },
                     onRemove = { vm.remove(product) },
+                    onClick = { vm.openProductId = product.id },
                 )
             }
         }

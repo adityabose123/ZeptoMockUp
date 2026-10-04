@@ -36,9 +36,10 @@ fun ProductCard(
     quantity: Int,
     onAdd: () -> Unit,
     onRemove: () -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.clickable(onClick = onClick)) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -48,14 +49,13 @@ fun ProductCard(
                 .background(Color.White),
             contentAlignment = Alignment.Center,
         ) {
-            Box(
+            ProductImage(
+                product = product,
                 modifier = Modifier
-                    .fillMaxWidth(0.62f)
+                    .fillMaxWidth(0.8f)
                     .aspectRatio(1f)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(product.colorHex)),
-                contentAlignment = Alignment.Center,
-            ) { Text(product.emoji, fontSize = 36.sp) }
+                    .clip(RoundedCornerShape(12.dp)),
+            )
             Icon(
                 Icons.Filled.FavoriteBorder,
                 contentDescription = null,

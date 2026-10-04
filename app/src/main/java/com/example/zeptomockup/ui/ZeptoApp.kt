@@ -41,8 +41,15 @@ import com.example.zeptomockup.CartViewModel
 @Composable
 fun ZeptoApp(vm: CartViewModel) {
     var showCart by rememberSaveable { mutableStateOf(false) }
+    val openProduct = vm.openProductId?.let { vm.find(it) }
 
-    BackHandler(enabled = showCart) { showCart = false }
+    BackHandler(enabled = showCart || openProduct != null || vm.resultsMode) {
+        when {
+            showCart -> showCart = false
+            openProduct != null -> vm.openProductId = null
+            else -> vm.exitResults()
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.White).navigationBarsPadding()) {
         if (showCart) {
@@ -54,8 +61,17 @@ fun ZeptoApp(vm: CartViewModel) {
                     if (vm.itemCount > 0) {
                         CartBar(vm, onOpenCart = { showCart = true }, modifier = Modifier.align(Alignment.BottomCenter))
                     }
+                    if (openProduct != null) {
+                        ProductDetailScreen(
+                            product = openProduct,
+                            vm = vm,
+                            onBack = { vm.openProductId = null },
+                            onOpenCart = { showCart = true },
+                            onOpenProduct = { vm.openProductId = it.id },
+                        )
+                    }
                 }
-                BottomNav()
+                if (openProduct == null) BottomNav()
             }
         }
     }

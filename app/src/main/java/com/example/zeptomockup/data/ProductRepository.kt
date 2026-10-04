@@ -60,10 +60,12 @@ object ProductRepository {
 
     val brandNames: Set<String> = products.map { it.brand.lowercase() }.toSet()
 
-    fun search(query: String): List<Product> {
+    fun search(query: String): List<Product> = filter(products, query)
+
+    fun filter(list: List<Product>, query: String): List<Product> {
         val tokens = query.trim().lowercase().split(Regex("\\s+")).filter { it.isNotEmpty() }
-        if (tokens.isEmpty()) return products
-        return products.filter { p ->
+        if (tokens.isEmpty()) return list
+        return list.filter { p ->
             val haystack = "${p.name} ${p.brand} ${p.category}".lowercase()
             tokens.all { haystack.contains(it) }
         }

@@ -115,16 +115,17 @@ fun CartScreen(vm: CartViewModel, onBack: () -> Unit, modifier: Modifier = Modif
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(12.dp))
                             .background(Color.White)
+                            .clickable { vm.openProductId = product.id; onBack() }
                             .padding(10.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Box(
+                        ProductImage(
+                            product = product,
+                            emojiSize = 28.sp,
                             modifier = Modifier
                                 .size(56.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(Color(product.colorHex)),
-                            contentAlignment = Alignment.Center,
-                        ) { Text(product.emoji, fontSize = 28.sp) }
+                                .clip(RoundedCornerShape(10.dp)),
+                        )
                         Column(modifier = Modifier.weight(1f).padding(horizontal = 10.dp)) {
                             Text(product.name, fontWeight = FontWeight.Medium, fontSize = 13.sp, maxLines = 2)
                             Text(product.quantity, color = Color.Gray, fontSize = 11.sp)
