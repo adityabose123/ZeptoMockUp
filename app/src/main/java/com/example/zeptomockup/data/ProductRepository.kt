@@ -3,18 +3,12 @@ package com.example.zeptomockup.data
 object ProductRepository {
 
     val categories = listOf(
-        Category("Beauty", "Beauty &
-Personal Care", "BUY 1 GET 1", "💄🧴", 0xFFFCE4EC),
-        Category("Hair Care", "Hair Care
-Essentials", "UP TO 40% OFF", "🧴🌿", 0xFFEDE7F6),
-        Category("Snacks", "Munch, Sip
-& Chill", "STARTING FROM ₹19", "🍟🥤", 0xFFFFF1D6),
-        Category("Home Care", "Home
-Refresh", "STARTING FROM ₹29", "🧺🧹", 0xFFE6F0FB),
-        Category("Dairy & Eggs", "Dairy, Bread
-& Eggs", "STARTING FROM ₹29", "🥛🍞", 0xFFE0F7FA),
-        Category("Fruits & Veg", "Fresh Fruits
-& Veggies", "STARTING FROM ₹22", "🥦🍎", 0xFFE3F5E1),
+        Category("Beauty", "Beauty &\nPersonal Care", "BUY 1 GET 1", "💄🧴", 0xFFFCE4EC),
+        Category("Hair Care", "Hair Care\nEssentials", "UP TO 40% OFF", "🧴🌿", 0xFFEDE7F6),
+        Category("Snacks", "Munch, Sip\n& Chill", "STARTING FROM ₹19", "🍟🥤", 0xFFFFF1D6),
+        Category("Home Care", "Home\nRefresh", "STARTING FROM ₹29", "🧺🧹", 0xFFE6F0FB),
+        Category("Dairy & Eggs", "Dairy, Bread\n& Eggs", "STARTING FROM ₹29", "🥛🍞", 0xFFE0F7FA),
+        Category("Fruits & Veg", "Fresh Fruits\n& Veggies", "STARTING FROM ₹22", "🥦🍎", 0xFFE3F5E1),
     )
 
     val products: List<Product> = listOf(
