@@ -46,4 +46,19 @@ class CartViewModel : ViewModel() {
 
     val totalSavings: Int
         get() = cartItems.sumOf { (p, q) -> (p.mrp - p.price) * q }
+
+    val deliveryFee: Int
+        get() = if (itemCount == 0 || totalPrice >= FREE_DELIVERY_MIN) 0 else DELIVERY_FEE
+
+    val totalPay: Int
+        get() = totalPrice + deliveryFee + HANDLING_FEE
+
+    val amountForFreeDelivery: Int
+        get() = (FREE_DELIVERY_MIN - totalPrice).coerceAtLeast(0)
+
+    companion object {
+        const val FREE_DELIVERY_MIN = 199
+        const val DELIVERY_FEE = 25
+        const val HANDLING_FEE = 5
+    }
 }

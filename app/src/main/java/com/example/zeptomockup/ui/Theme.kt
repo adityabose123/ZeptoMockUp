@@ -7,8 +7,10 @@ import androidx.compose.ui.graphics.Color
 
 val ZeptoPurple = Color(0xFF3B0A5E)
 val ZeptoPurpleLight = Color(0xFF5B1F8C)
-val ZeptoPink = Color(0xFFD6246E)
-val ZeptoGreen = Color(0xFF1E8E3E)
+val ZeptoPink = Color(0xFFFF2D6F)
+val ZeptoYellow = Color(0xFFFFF0A6)
+val ZeptoDark = Color(0xFF26262B)
+val ZeptoGreen = Color(0xFF1B8A3A)
 val ZeptoBackground = Color(0xFFF5F3F8)
 
 @Composable

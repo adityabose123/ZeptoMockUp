@@ -1,6 +1,7 @@
 package com.example.zeptomockup.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,10 +9,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,25 +43,28 @@ fun ProductCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
-                .clip(RoundedCornerShape(12.dp))
-                .background(Color(product.colorHex)),
+                .clip(RoundedCornerShape(14.dp))
+                .border(1.dp, Color(0xFFEDEDED), RoundedCornerShape(14.dp))
+                .background(Color.White),
             contentAlignment = Alignment.Center,
         ) {
-            Text(product.emoji, fontSize = 44.sp)
-            if (product.discountPercent > 0) {
-                Text(
-                    "${product.discountPercent}% OFF",
-                    color = Color.White,
-                    fontSize = 9.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
-                        .padding(6.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(ZeptoGreen)
-                        .padding(horizontal = 5.dp, vertical = 2.dp),
-                )
-            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.62f)
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(product.colorHex)),
+                contentAlignment = Alignment.Center,
+            ) { Text(product.emoji, fontSize = 36.sp) }
+            Icon(
+                Icons.Filled.FavoriteBorder,
+                contentDescription = null,
+                tint = ZeptoPink,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(6.dp)
+                    .size(18.dp),
+            )
             AddButton(
                 quantity = quantity,
                 onAdd = onAdd,
@@ -68,19 +75,19 @@ fun ProductCard(
             )
         }
         Row(
-            modifier = Modifier.padding(top = 6.dp),
+            modifier = Modifier.padding(top = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalArrangement = Arrangement.spacedBy(5.dp),
         ) {
             Text(
                 "₹${product.price}",
-                fontWeight = FontWeight.Bold,
-                fontSize = 13.sp,
-                modifier = Modifier
-                    .clip(RoundedCornerShape(4.dp))
-                    .background(ZeptoGreen)
-                    .padding(horizontal = 5.dp, vertical = 1.dp),
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 14.sp,
                 color = Color.White,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(ZeptoGreen)
+                    .padding(horizontal = 7.dp, vertical = 2.dp),
             )
             if (product.mrp > product.price) {
                 Text(
@@ -91,18 +98,43 @@ fun ProductCard(
                 )
             }
         }
+        if (product.savings > 0) {
+            Text(
+                "₹${product.savings} OFF",
+                color = ZeptoGreen,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 11.sp,
+                modifier = Modifier.padding(top = 6.dp),
+            )
+        }
         Text(
             product.name,
-            fontSize = 12.sp,
+            fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
-            maxLines = 2,
+            maxLines = 3,
+            minLines = 3,
             overflow = TextOverflow.Ellipsis,
-            lineHeight = 15.sp,
-            modifier = Modifier
-                .padding(top = 4.dp)
-                .height(30.dp),
+            lineHeight = 16.sp,
+            modifier = Modifier.padding(top = 4.dp),
         )
-        Text(product.quantity, fontSize = 11.sp, color = Color.Gray)
+        Text(product.quantity, fontSize = 11.sp, color = Color.Gray, modifier = Modifier.padding(top = 2.dp))
+        Row(modifier = Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text("★", color = ZeptoGreen, fontSize = 11.sp)
+            Text(
+                " ${product.rating}(${product.ratingCount})",
+                color = Color.DarkGray,
+                fontSize = 11.sp,
+            )
+        }
+        product.offerText?.let {
+            Text(
+                "$it ›",
+                color = Color(0xFF1565C0),
+                fontWeight = FontWeight.Bold,
+                fontSize = 11.sp,
+                modifier = Modifier.padding(top = 4.dp),
+            )
+        }
     }
 }
 
@@ -113,34 +145,36 @@ fun AddButton(
     onRemove: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val shape = RoundedCornerShape(10.dp)
     if (quantity == 0) {
         Box(
             modifier = modifier
-                .clip(RoundedCornerShape(8.dp))
+                .clip(shape)
                 .background(Color.White)
+                .border(2.dp, ZeptoPink, shape)
                 .clickable(onClick = onAdd)
-                .padding(horizontal = 14.dp, vertical = 6.dp),
+                .padding(horizontal = 16.dp, vertical = 6.dp),
             contentAlignment = Alignment.Center,
         ) {
-            Text("ADD", color = ZeptoPink, fontWeight = FontWeight.ExtraBold, fontSize = 12.sp)
+            Text("ADD", color = ZeptoPink, fontWeight = FontWeight.ExtraBold, fontSize = 13.sp)
         }
     } else {
         Row(
             modifier = modifier
-                .clip(RoundedCornerShape(8.dp))
+                .clip(shape)
                 .background(ZeptoPink),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 "−",
                 color = Color.White,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .clickable(onClick = onRemove)
-                    .width(28.dp)
-                    .padding(vertical = 4.dp),
+                    .width(30.dp)
+                    .padding(vertical = 5.dp),
             )
             Text(
                 "$quantity",
@@ -153,15 +187,14 @@ fun AddButton(
             Text(
                 "+",
                 color = Color.White,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .clickable(onClick = onAdd)
-                    .width(28.dp)
-                    .padding(vertical = 4.dp),
+                    .width(30.dp)
+                    .padding(vertical = 5.dp),
             )
         }
     }
 }
-

@@ -148,10 +148,10 @@ fun CartScreen(vm: CartViewModel, onBack: () -> Unit, modifier: Modifier = Modif
                     ) {
                         Text("Bill details", fontWeight = FontWeight.Bold)
                         BillRow("Item total", "₹${vm.totalPrice}")
-                        BillRow("Delivery fee", "FREE", valueColor = ZeptoGreen)
-                        BillRow("Handling fee", "₹5")
+                        BillRow("Delivery fee", if (vm.deliveryFee == 0) "FREE" else "₹${vm.deliveryFee}", valueColor = if (vm.deliveryFee == 0) ZeptoGreen else Color.Unspecified)
+                        BillRow("Handling fee", "₹${CartViewModel.HANDLING_FEE}")
                         Spacer(Modifier.size(2.dp))
-                        BillRow("To pay", "₹${vm.totalPrice + 5}", bold = true)
+                        BillRow("To pay", "₹${vm.totalPay}", bold = true)
                     }
                 }
             }
@@ -165,7 +165,7 @@ fun CartScreen(vm: CartViewModel, onBack: () -> Unit, modifier: Modifier = Modif
                         .padding(horizontal = 16.dp, vertical = 14.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text("₹${vm.totalPrice + 5}  TOTAL", color = Color.White, fontWeight = FontWeight.Bold)
+                    Text("₹${vm.totalPay}  TOTAL", color = Color.White, fontWeight = FontWeight.Bold)
                     Text("Place Order ▸", color = Color.White, fontWeight = FontWeight.ExtraBold)
                 }
             }

@@ -3,14 +3,18 @@ package com.example.zeptomockup.data
 object ProductRepository {
 
     val categories = listOf(
-        Category("Fruits & Veg", "🥦", 0xFFE3F5E1),
-        Category("Dairy & Eggs", "🥛", 0xFFE6F0FB),
-        Category("Snacks", "🍟", 0xFFFFF1D6),
-        Category("Beauty", "💄", 0xFFFCE4EC),
-        Category("Hair Care", "🧴", 0xFFEDE7F6),
-        Category("Cold Drinks", "🥤", 0xFFE0F7FA),
-        Category("Bakery", "🍞", 0xFFFBE9D7),
-        Category("Home Care", "🧹", 0xFFEFEFEF),
+        Category("Beauty", "Beauty &
+Personal Care", "BUY 1 GET 1", "💄🧴", 0xFFFCE4EC),
+        Category("Hair Care", "Hair Care
+Essentials", "UP TO 40% OFF", "🧴🌿", 0xFFEDE7F6),
+        Category("Snacks", "Munch, Sip
+& Chill", "STARTING FROM ₹19", "🍟🥤", 0xFFFFF1D6),
+        Category("Home Care", "Home
+Refresh", "STARTING FROM ₹29", "🧺🧹", 0xFFE6F0FB),
+        Category("Dairy & Eggs", "Dairy, Bread
+& Eggs", "STARTING FROM ₹29", "🥛🍞", 0xFFE0F7FA),
+        Category("Fruits & Veg", "Fresh Fruits
+& Veggies", "STARTING FROM ₹22", "🥦🍎", 0xFFE3F5E1),
     )
 
     val products: List<Product> = listOf(
@@ -49,12 +53,12 @@ object ProductRepository {
         Product(28, "Maybelline Kajal", "Maybelline", "0.35 g", 199, 249, "Beauty", "👁️", 0xFFEDE7F6),
         Product(29, "Nivea Body Lotion", "Nivea", "200 ml", 215, 280, "Beauty", "🧴", 0xFFE0F2FE),
         // Cold drinks
-        Product(30, "Coca-Cola", "Coca-Cola", "750 ml", 40, 40, "Cold Drinks", "🥤", 0xFFFFE5E2),
-        Product(31, "Sprite", "Coca-Cola", "750 ml", 40, 40, "Cold Drinks", "🥤", 0xFFE3F5E1),
-        Product(32, "Real Mixed Fruit Juice", "Real", "1 L", 110, 120, "Cold Drinks", "🧃", 0xFFFFEFD9),
+        Product(30, "Coca-Cola", "Coca-Cola", "750 ml", 40, 40, "Snacks", "🥤", 0xFFFFE5E2),
+        Product(31, "Sprite", "Coca-Cola", "750 ml", 40, 40, "Snacks", "🥤", 0xFFE3F5E1),
+        Product(32, "Real Mixed Fruit Juice", "Real", "1 L", 110, 120, "Snacks", "🧃", 0xFFFFEFD9),
         // Bakery
-        Product(33, "Whole Wheat Bread", "Harvest Gold", "400 g", 45, 50, "Bakery", "🍞", 0xFFFBE9D7),
-        Product(34, "Butter Croissant", "Theobroma", "2 pcs", 99, 120, "Bakery", "🥐", 0xFFFFF1D6),
+        Product(33, "Whole Wheat Bread", "Harvest Gold", "400 g", 45, 50, "Dairy & Eggs", "🍞", 0xFFFBE9D7),
+        Product(34, "Butter Croissant", "Theobroma", "2 pcs", 99, 120, "Dairy & Eggs", "🥐", 0xFFFFF1D6),
         // Home care
         Product(35, "Surf Excel Detergent", "Surf Excel", "1 kg", 135, 160, "Home Care", "🧺", 0xFFE0F2FE),
         Product(36, "Vim Dishwash Gel", "Vim", "500 ml", 105, 125, "Home Care", "🍋", 0xFFFFF8D6),
