@@ -102,7 +102,6 @@ fun ProductDetailScreen(
         ) {
             ProductImage(
                 product = product,
-                large = true,
                 emojiSize = 96.sp,
                 modifier = Modifier.fillMaxWidth().height(300.dp),
             )
@@ -215,7 +214,7 @@ fun ProductDetailScreen(
             }
 
             Text(
-                "Prices and ratings are illustrative. Product names, photos and ingredients from Open Beauty Facts / Open Food Facts (open data, ODbL / CC BY-SA).",
+                "Prices and ratings are illustrative (mock data).",
                 color = Color.Gray,
                 fontSize = 10.sp,
                 lineHeight = 14.sp,

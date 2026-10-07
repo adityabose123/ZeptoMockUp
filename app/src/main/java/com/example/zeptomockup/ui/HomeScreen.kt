@@ -376,12 +376,7 @@ private fun ResultsScreen(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            if (vm.searchLoading && category == null) {
-                item(span = { GridItemSpan(maxLineSpan) }) {
-                    Text("Searching live catalogue…", color = Color.Gray, fontSize = 13.sp)
-                }
-            }
-            if (products.isEmpty() && !vm.searchLoading) {
+            if (products.isEmpty()) {
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     Column(
                         modifier = Modifier.fillMaxWidth().padding(vertical = 64.dp),

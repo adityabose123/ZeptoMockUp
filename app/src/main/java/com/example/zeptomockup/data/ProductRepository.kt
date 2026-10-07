@@ -1,5 +1,7 @@
 package com.example.zeptomockup.data
 
+import com.example.zeptomockup.R
+
 object ProductRepository {
 
     val categories = listOf(
@@ -34,14 +36,37 @@ object ProductRepository {
         // Beauty & Hair — Garnier
         Product(17, "Garnier Vitamin C Serum", "Garnier", "30 ml", 449, 599, "Beauty", "🍊", 0xFFFFEDD6),
         Product(18, "Garnier Micellar Water", "Garnier", "125 ml", 189, 249, "Beauty", "💧", 0xFFE0F2FE),
-        Product(19, "Garnier Bright Complete Face Wash", "Garnier", "100 g", 165, 205, "Beauty", "🧼", 0xFFFFF3C4),
+        Product(
+            19, "Garnier Bright Complete Vitamin C Serum Cleanser", "Garnier", "1 pc", 165, 205, "Beauty", "🧼", 0xFFFFFFFF,
+            imageRes = R.drawable.garnier_bright_complete,
+            description = "Brightens like a serum. Visibly brighter skin in 1 wash. Dermatologically tested and suitable for all skin types.",
+        ),
         Product(20, "Garnier Men Acno Fight Face Wash", "Garnier", "100 g", 149, 190, "Beauty", "🧴", 0xFFE0F7E9),
-        Product(21, "Garnier Sunscreen SPF 50", "Garnier", "50 g", 299, 399, "Beauty", "☀️", 0xFFFFF0D2),
+        Product(
+            21, "Garnier Super UV Cooling Watergel Sunscreen SPF 50+ PA++++", "Garnier", "1 pc", 299, 399, "Beauty", "☀️", 0xFFFFFFFF,
+            imageRes = R.drawable.garnier_super_uv,
+            description = "Cooling watergel sunscreen with Vitamin C. SPF 50+ PA++++ protection against UV rays.",
+        ),
         Product(22, "Garnier Fructis Shampoo", "Garnier", "340 ml", 249, 335, "Hair Care", "🧴", 0xFFE3F5E1),
         Product(23, "Garnier Ultra Blends Conditioner", "Garnier", "180 ml", 175, 225, "Hair Care", "🌿", 0xFFE3F5E1),
         Product(24, "Garnier Color Naturals Hair Colour", "Garnier", "70 ml + 40 g", 199, 240, "Hair Care", "🎨", 0xFFEDE7F6),
         Product(25, "Garnier Black Naturals Hair Colour", "Garnier", "1 pack", 185, 220, "Hair Care", "🖤", 0xFFE8E8EE),
         Product(26, "Garnier Skin Naturals Moisturiser", "Garnier", "100 ml", 135, 170, "Beauty", "🧴", 0xFFFCE4EC),
+        Product(
+            37, "Garnier Niacinamide Fresh & Plump Oil-Free 48H Hydrating Cream", "Garnier", "1 pc", 240, 299, "Beauty", "🧴", 0xFFFFFFFF,
+            imageRes = R.drawable.garnier_niacinamide,
+            description = "Oil-free 48H hydrating cream with 4.5% actives: Niacinamide, Peptide, BHA and Vitamin C.",
+        ),
+        Product(
+            38, "Garnier Salicylic Fresh & Matte Oil-Free 48H Hydrating Cream", "Garnier", "1 pc", 240, 299, "Beauty", "🧴", 0xFFFFFFFF,
+            imageRes = R.drawable.garnier_salicylic,
+            description = "Oil-free 48H hydrating cream with 4.5% actives: Salicylic Acid, Niacinamide and Vitamin C for a matte finish.",
+        ),
+        Product(
+            39, "Garnier Vitamin C Fresh & Bright Oil-Free 48H Hydrating Cream", "Garnier", "1 pc", 240, 299, "Beauty", "🧴", 0xFFFFFFFF,
+            imageRes = R.drawable.garnier_vitamin_c_cream,
+            description = "Oil-free 48H hydrating cream with 4.5% actives: Vitamin C, Hyaluron, Niacinamide and BHA for brighter skin.",
+        ),
         // Other beauty / hair
         Product(27, "Dove Hair Fall Shampoo", "Dove", "340 ml", 285, 360, "Hair Care", "🧴", 0xFFE6F0FB),
         Product(28, "Maybelline Kajal", "Maybelline", "0.35 g", 199, 249, "Beauty", "👁️", 0xFFEDE7F6),

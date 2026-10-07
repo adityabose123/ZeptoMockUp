@@ -1,5 +1,7 @@
 package com.example.zeptomockup.data
 
+import androidx.annotation.DrawableRes
+
 data class Product(
     val id: Int,
     val name: String,
@@ -10,8 +12,8 @@ data class Product(
     val category: String,
     val emoji: String,
     val colorHex: Long,
-    val imageUrl: String? = null,
-    val imageLargeUrl: String? = null,
+    /** Optional bundled product photo; products without one show their emoji tile. */
+    @DrawableRes val imageRes: Int? = null,
     val description: String = "",
     val ingredients: String = "",
 ) {
